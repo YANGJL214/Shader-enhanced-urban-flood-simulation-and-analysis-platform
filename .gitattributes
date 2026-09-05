@@ -1,0 +1,21 @@
+* text=auto
+
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.sh text eol=lf
+
+*.asc text
+*.cpg text
+*.csv text
+*.prj text
+*.qmd text
+*.sql text
+*.yaml text
+*.yml text
+
+*.dbf binary
+*.exe binary
+*.png binary
+*.shp binary
+*.shx binary
+*.zip binary

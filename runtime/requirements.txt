@@ -1,0 +1,11 @@
+anuga==3.0
+basic-modeling-interface==0.2
+geopandas==0.12.2
+numpy==1.20.1
+pandas==1.4.1
+pyproj==3.4.1
+PyYAML==6.0
+scipy==1.7.3
+Shapely==1.7.0
+swmmtoolbox==4.0.15
+triangle==20220202

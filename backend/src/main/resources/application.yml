@@ -1,0 +1,49 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: shader-enhanced-urbanflood
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${URBANFLOOD_DB_URL:jdbc:postgresql://127.0.0.1:5432/urbanflood}
+    username: ${URBANFLOOD_DB_USERNAME:urbanflood}
+    password: ${URBANFLOOD_DB_PASSWORD:urbanflood_dev}
+  servlet:
+    multipart:
+      max-file-size: 2GB
+      max-request-size: 4GB
+
+mybatis-plus:
+  type-enums-package: cn.com.medoxcq.module.warning.module.simulation.enums
+  global-config:
+    db-config:
+      logic-delete-field: delFlag
+      logic-delete-value: "1"
+      logic-not-delete-value: "0"
+  configuration:
+    map-underscore-to-camel-case: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+mqtt:
+  client:
+    server-uri: ${URBANFLOOD_MQTT_URI:tcp://127.0.0.1:1883}
+    username: ${URBANFLOOD_MQTT_USERNAME:}
+    password: ${URBANFLOOD_MQTT_PASSWORD:}
+
+simulation:
+  os-name: windows
+  urban-flood-model: ${URBANFLOOD_RUNTIME_ROOT:../runtime}
+  urban-flood-workspace: ${URBANFLOOD_WORKSPACE_ROOT:../data/workspaces}
+  urban-flood-template-path: ${URBANFLOOD_TEMPLATE_ROOT:../runtime/templates}
+  urban-flood-region-root: ${URBANFLOOD_REGION_ROOT:../data/regions}
+  python-executable: ${URBANFLOOD_PYTHON:../runtime/anuga_env/python.exe}
+
+logging:
+  level:
+    cn.com.medoxcq: info

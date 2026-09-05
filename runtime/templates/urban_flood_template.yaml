@@ -1,0 +1,60 @@
+domain_type: poVec
+shape: [3, 3]
+size: [3., 3.]
+point_and_vertices: 'xxx_p_a_v.xlsx'
+pipe_Index_Cord: 'xxx_bci.csv'
+rainfall: 'xxx.csv'
+elevation_filename: 'xxx.asc'
+output_dir: 'outputdir'
+output_filename: 'project_name'
+output_timestep: 60
+save_timestep: 60
+maximum_triangle_area: 10
+toggle_sediment_transport: true
+inflow_sediment_concentration: 0.01
+initial_sediment_concentration: 0.01
+toggle_vegetation_drag: false
+vegetation_stem_diameter: 0.01
+vegetation_stem_spacing: 0.4
+Mannings_n_parameter: 0.06
+landuse:
+  raster: 'xxx/landuse.asc'
+  class_to_manning:
+    1: 0.045
+    5: 0.035
+    8: 0.015
+  default: 0.03
+infiltration:
+  enabled: true
+  method: horton
+  strict_classes: true
+  units:
+    rate: mm/hr
+    decay: 1/hr
+    depth: mm
+  default:
+    max_rate: 0.0
+    min_rate: 0.0
+    decay: 0.0
+    drying_time_days: 7.0
+    max_infiltration: 0.0
+  classes:
+    1:
+      max_rate: 60.0
+      min_rate: 8.0
+      decay: 3.0
+      drying_time_days: 7.0
+      max_infiltration: 150.0
+    5:
+      max_rate: 0.0
+      min_rate: 0.0
+      decay: 0.0
+      drying_time_days: 7.0
+      max_infiltration: 0.0
+    8:
+      max_rate: 10.0
+      min_rate: 1.0
+      decay: 4.0
+      drying_time_days: 7.0
+      max_infiltration: 5.0
+

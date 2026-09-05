@@ -1,0 +1,47 @@
+name: shader-enhanced-urbanflood
+
+services:
+  postgis:
+    image: postgis/postgis:15-3.4
+    container_name: urbanflood-postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-urbanflood}
+      POSTGRES_USER: ${POSTGRES_USER:-urbanflood}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-urbanflood_dev}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgis-data:/var/lib/postgresql/data
+      - ../database/init.sql:/docker-entrypoint-initdb.d/10-init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  emqx:
+    image: emqx:5.8.8
+    container_name: urbanflood-emqx
+    restart: unless-stopped
+    environment:
+      EMQX_NODE__NAME: emqx@urbanflood-emqx
+      EMQX_DASHBOARD__DEFAULT_USERNAME: ${EMQX_DASHBOARD_USER:-admin}
+      EMQX_DASHBOARD__DEFAULT_PASSWORD: ${EMQX_DASHBOARD_PASSWORD:-urbanflood_dev}
+    ports:
+      - "127.0.0.1:1883:1883"
+      - "127.0.0.1:8083:8083"
+      - "127.0.0.1:18083:18083"
+    volumes:
+      - emqx-data:/opt/emqx/data
+      - emqx-log:/opt/emqx/log
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://127.0.0.1:18083/status"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+volumes:
+  postgis-data:
+  emqx-data:
+  emqx-log:
